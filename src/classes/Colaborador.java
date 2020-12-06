@@ -1,5 +1,7 @@
 package src.classes;
 
+import java.util.ArrayList;
+
 import src.classes.enums.TipoColaborador;
 
 public class Colaborador {
@@ -7,6 +9,8 @@ public class Colaborador {
   private String nome;
   private String email;
   private TipoColaborador tipo;
+  private ArrayList<Projeto> projetos = new ArrayList<Projeto>();
+  private ArrayList<ProducaoAcademica> producoesAcademicas = new ArrayList<ProducaoAcademica>();
 
   public Colaborador(int id, String nome, String email, TipoColaborador tipo) {
     this.id = id;
@@ -31,6 +35,14 @@ public class Colaborador {
     return tipo;
   }
 
+  public ArrayList<Projeto> getProjetos() {
+    return projetos;
+  }
+
+  public ArrayList<ProducaoAcademica> getProducoesAcademicas() {
+    return producoesAcademicas;
+  }
+
   public void setId(int id) {
     this.id = id;
   }
@@ -45,5 +57,21 @@ public class Colaborador {
 
   public void setTipo(TipoColaborador tipo) {
     this.tipo = tipo;
+  }
+
+  public void setProjetos(ArrayList<Projeto> projetos) {
+    this.projetos = projetos;
+  }
+
+  public void setProducoesAcademicas(ArrayList<ProducaoAcademica> producoesAcademicas) {
+    this.producoesAcademicas = producoesAcademicas;
+  }
+
+  public void adicionaProjeto(Projeto projeto) {
+    this.projetos.add(projeto);
+  }
+
+  public void adicionaProducaoAcademica(ProducaoAcademica producaoAcademica) {
+    this.producoesAcademicas.add(producaoAcademica);
   }
 }

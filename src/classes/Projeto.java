@@ -1,5 +1,7 @@
 package src.classes;
 
+import java.util.ArrayList;
+
 import src.classes.enums.Status;
 
 public class Projeto {
@@ -12,10 +14,18 @@ public class Projeto {
   private String objetivo;
   private String descricao;
   private Status status;
+  private ArrayList<Colaborador> colaboradores = new ArrayList<Colaborador>();
+  private ArrayList<Publicacao> publicacoes = new ArrayList<Publicacao>();
+
+  public Projeto(int id, String titulo, Colaborador responsavel) {
+    this.id = id;
+    this.titulo = titulo;
+    this.status = Status.E;
+    colaboradores.add(responsavel);
+  }
 
   public Projeto(int id, String titulo, String dataInicio, String dataTermino, String agenciaFinanciadora,
-      float valorFinanciado, String objetivo, String descricao, Status status) {
-
+      float valorFinanciado, String objetivo, String descricao, Colaborador responsavel) {
     this.id = id;
     this.titulo = titulo;
     this.dataInicio = dataInicio;
@@ -24,7 +34,8 @@ public class Projeto {
     this.valorFinanciado = valorFinanciado;
     this.objetivo = objetivo;
     this.descricao = descricao;
-    this.status = status;
+    this.status = Status.E;
+    colaboradores.add(responsavel);
   }
 
   public int getId() {
@@ -63,6 +74,14 @@ public class Projeto {
     return status;
   }
 
+  public ArrayList<Colaborador> getColaboradores() {
+    return colaboradores;
+  }
+
+  public ArrayList<Publicacao> getPublicacoes() {
+    return publicacoes;
+  }
+
   public void setId(int id) {
     this.id = id;
   }
@@ -97,5 +116,21 @@ public class Projeto {
 
   public void setStatus(Status status) {
     this.status = status;
+  }
+
+  public void setColaboradores(ArrayList<Colaborador> colaboradores) {
+    this.colaboradores = colaboradores;
+  }
+
+  public void setPublicacoes(ArrayList<Publicacao> publicacoes) {
+    this.publicacoes = publicacoes;
+  }
+
+  public void adicionaColaborador(Colaborador colaborador) {
+    this.colaboradores.add(colaborador);
+  }
+
+  public void adicionaPublicacao(Publicacao publicacao) {
+    this.publicacoes.add(publicacao);
   }
 }
