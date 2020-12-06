@@ -1,8 +1,8 @@
-package src.classes;
+package src.model;
 
 import java.util.ArrayList;
 
-import src.classes.enums.TipoProducao;
+import src.model.enums.TipoProducao;
 
 public class Publicacao extends ProducaoAcademica {
   private String nomeConferencia;

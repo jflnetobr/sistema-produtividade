@@ -1,8 +1,8 @@
-package src.classes;
+package src.model;
 
 import java.util.ArrayList;
 
-import src.classes.enums.TipoColaborador;
+import src.model.enums.TipoColaborador;
 
 public class Colaborador {
   private int id;

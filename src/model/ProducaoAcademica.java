@@ -1,6 +1,6 @@
-package src.classes;
+package src.model;
 
-import src.classes.enums.TipoProducao;
+import src.model.enums.TipoProducao;
 
 public class ProducaoAcademica {
   private int id;

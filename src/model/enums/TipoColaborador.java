@@ -1,4 +1,4 @@
-package src.classes.enums;
+package src.model.enums;
 
 public enum TipoColaborador {
   G("Graduando"), M("Mestrando"), D("Doutorando"), Prof("Professor"), Pesq("Pesquisador");

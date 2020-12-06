@@ -1,11 +1,11 @@
-package src.classes.enums;
+package src.model.enums;
 
-public enum Status {
-  E("Elaboração"), A("Em Andamento"), C("Concluído");
+public enum TipoProducao {
+  P("Publicação"), O("Orientação");
 
   private final String descricao;
 
-  Status(String descricao) {
+  TipoProducao(String descricao) {
     this.descricao = descricao;
   }
 

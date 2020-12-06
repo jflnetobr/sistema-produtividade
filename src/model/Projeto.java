@@ -1,8 +1,8 @@
-package src.classes;
+package src.model;
 
 import java.util.ArrayList;
 
-import src.classes.enums.Status;
+import src.model.enums.Status;
 
 public class Projeto {
   private int id;
