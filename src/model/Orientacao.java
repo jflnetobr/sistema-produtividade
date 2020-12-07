@@ -5,31 +5,31 @@ import java.util.ArrayList;
 import src.model.enums.TipoProducao;
 
 public class Orientacao extends ProducaoAcademica {
-  private Colaborador professor;
-  private ArrayList<Colaborador> alunos = new ArrayList<Colaborador>();
+  private Colaborador orientador;
+  private ArrayList<Colaborador> orientados = new ArrayList<Colaborador>();
 
-  public Orientacao(int id, String titulo, int anoPublicacao, Colaborador professor) {
+  public Orientacao(int id, String titulo, int anoPublicacao, Colaborador orientador) {
     super(id, titulo, anoPublicacao, TipoProducao.O);
-    this.professor = professor;
+    this.orientador = orientador;
   }
 
-  public Colaborador getProfessor() {
-    return professor;
+  public Colaborador getOrientador() {
+    return orientador;
   }
 
-  public ArrayList<Colaborador> getAlunos() {
-    return alunos;
+  public ArrayList<Colaborador> getOrientados() {
+    return orientados;
   }
 
-  public void setProfessor(Colaborador professor) {
-    this.professor = professor;
+  public void setOrientador(Colaborador orientador) {
+    this.orientador = orientador;
   }
 
-  public void setAlunos(ArrayList<Colaborador> alunos) {
-    this.alunos = alunos;
+  public void setOrientados(ArrayList<Colaborador> orientados) {
+    this.orientados = orientados;
   }
 
-  public void adicionaAluno(Colaborador aluno) {
-    this.alunos.add(aluno);
+  public void adicionaOrientado(Colaborador orientado) {
+    this.orientados.add(orientado);
   }
 }
