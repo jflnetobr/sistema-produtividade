@@ -2,6 +2,8 @@ package src.model;
 
 import java.util.ArrayList;
 
+import src.model.enums.*;
+
 public class Laboratorio {
   private String nome;
   private String instituicao;
@@ -64,15 +66,115 @@ public class Laboratorio {
     this.producoesAcademicas = producoesAcademicas;
   }
 
-  public void adicionaColaborador(Colaborador colaborador) {
-    this.colaboradores.add(colaborador);
+  public Colaborador getColaborador(int id) {
+    return colaboradores.get(id - 1);
   }
 
-  public void adicionaProjeto(Projeto projeto) {
-    this.projetos.add(projeto);
+  public Projeto getProjeto(int id) {
+    return projetos.get(id - 1);
   }
 
-  public void adicionaProducaoAcademica(ProducaoAcademica producaoAcademica) {
-    this.producoesAcademicas.add(producaoAcademica);
+  public ProducaoAcademica getProducaoAcademica(int id) {
+    return producoesAcademicas.get(id - 1);
+  }
+
+  public ArrayList<Colaborador> buscaColaboradores(String termo) {
+    ArrayList<Colaborador> result = new ArrayList<Colaborador>();
+
+    colaboradores.forEach(colaborador -> {
+      if (colaborador.getNome().matches("(?i).*" + termo + ".*")
+          || colaborador.getEmail().matches(".*" + termo + ".*")) {
+        result.add(colaborador);
+      }
+    });
+
+    return result;
+  }
+
+  public ArrayList<Projeto> buscaProjetos(String termo) {
+    ArrayList<Projeto> result = new ArrayList<Projeto>();
+
+    projetos.forEach(projeto -> {
+      if (projeto.getTitulo().matches("(?i).*" + termo + ".*") || (projeto.getAgenciaFinanciadora() != null
+          && projeto.getAgenciaFinanciadora().matches("(?i).*" + termo + ".*"))) {
+        result.add(projeto);
+      }
+    });
+
+    return result;
+  }
+
+  public ArrayList<ProducaoAcademica> buscaProducaoAcademica(String termo) {
+    ArrayList<ProducaoAcademica> result = new ArrayList<ProducaoAcademica>();
+
+    producoesAcademicas.forEach(producaoAcademica -> {
+      if (producaoAcademica.getTitulo().matches("(?i).*" + termo + ".*")) {
+        result.add(producaoAcademica);
+      }
+    });
+
+    return result;
+  }
+
+  public boolean criarColaborador(String nome, String email, int tipo) {
+    TipoColaborador t;
+
+    switch (tipo) {
+      case 1:
+        t = TipoColaborador.G;
+        break;
+      case 2:
+        t = TipoColaborador.M;
+        break;
+      case 3:
+        t = TipoColaborador.D;
+        break;
+      case 4:
+        t = TipoColaborador.Prof;
+        break;
+      case 5:
+        t = TipoColaborador.Pesq;
+        break;
+      default:
+        return false;
+    }
+
+    this.colaboradores.add(new Colaborador(colaboradores.size() + 1, nome, email, t));
+
+    return true;
+  }
+
+  public boolean criarProjetoResumido(String titulo, int idResponsavel) {
+    if (colaboradores.get(idResponsavel - 1).getTipo() == TipoColaborador.Prof) {
+      this.projetos.add(new Projeto(projetos.size() + 1, titulo, colaboradores.get(idResponsavel - 1)));
+      return true;
+    }
+    return false;
+  }
+
+  public boolean criarProjetoCompleto(String titulo, String dataInicio, String dataTermino, String agenciaFinanciadora,
+      float valorFinanciado, String objetivo, String descricao, int idResponsavel) {
+    if (colaboradores.get(idResponsavel - 1).getTipo() == TipoColaborador.Prof) {
+      this.projetos.add(new Projeto(projetos.size() + 1, titulo, dataInicio, dataTermino, agenciaFinanciadora,
+          valorFinanciado, objetivo, descricao, colaboradores.get(idResponsavel - 1)));
+      return true;
+    }
+    return false;
+  }
+
+  public boolean criarPublicacao(String titulo, int anoPublicacao, String nomeConferencia) {
+    this.producoesAcademicas
+        .add(new Publicacao(producoesAcademicas.size() + 1, titulo, anoPublicacao, nomeConferencia));
+    return true;
+  }
+
+  public boolean criarOrientacao(String titulo, int anoPublicacao, int idOrientador) {
+    if (colaboradores.get(idOrientador - 1).getTipo() == TipoColaborador.Prof) {
+      this.producoesAcademicas.add(
+          new Orientacao(producoesAcademicas.size() + 1, titulo, anoPublicacao, colaboradores.get(idOrientador - 1)));
+      return true;
+    }
+
+    return false;
   }
 }
