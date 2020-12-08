@@ -29,7 +29,12 @@ public class Orientacao extends ProducaoAcademica {
     this.orientados = orientados;
   }
 
-  public void adicionaOrientado(Colaborador orientado) {
-    this.orientados.add(orientado);
+  public boolean adicionaOrientado(Colaborador orientado) {
+    if (!orientados.contains(orientado)) {
+      orientados.add(orientado);
+      orientado.adicionaProducaoAcademica(this);
+      return true;
+    }
+    return false;
   }
 }
