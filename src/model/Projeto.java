@@ -2,7 +2,7 @@ package src.model;
 
 import java.util.ArrayList;
 
-import src.model.enums.Status;
+import src.model.enums.*;
 
 public class Projeto {
   private int id;
@@ -126,11 +126,76 @@ public class Projeto {
     this.publicacoes = publicacoes;
   }
 
-  public void adicionaColaborador(Colaborador colaborador) {
-    this.colaboradores.add(colaborador);
-  }
-
   public void adicionaPublicacao(Publicacao publicacao) {
     this.publicacoes.add(publicacao);
+  }
+
+  public boolean complementarDados(String dataInicio, String dataTermino, String agenciaFinanciadora,
+      float valorFinanciado, String objetivo, String descricao) {
+    if (this.dataInicio == null && this.dataTermino == null && this.agenciaFinanciadora == null
+        && this.valorFinanciado == 0 && this.objetivo == null && this.descricao == null) {
+      this.dataInicio = dataInicio;
+      this.dataTermino = dataTermino;
+      this.agenciaFinanciadora = agenciaFinanciadora;
+      this.valorFinanciado = valorFinanciado;
+      this.objetivo = objetivo;
+      this.descricao = descricao;
+      return true;
+    }
+    return false;
+  }
+
+  public boolean avancaStatus() {
+    if (status == Status.E) {
+      if (this.dataInicio != null && this.dataTermino != null && this.agenciaFinanciadora != null
+          && this.valorFinanciado != 0 && this.objetivo != null && this.descricao != null) {
+        for (int i = 0; i < colaboradores.size(); i++) {
+          if (colaboradores.get(1).getTipo() == TipoColaborador.G) {
+            if (colaboradores.get(1).getProjetos().stream().filter(projeto -> projeto.getStatus() == Status.A)
+                .count() >= 2) {
+              return false;
+            }
+          }
+        }
+        this.status = Status.A;
+        return true;
+      }
+      return false;
+    } else if (status == Status.A) {
+      if (publicacoes.size() > 0) {
+        this.status = Status.C;
+        return true;
+      }
+      return false;
+    }
+    return false;
+  }
+
+  public boolean alocaParticipante(Colaborador participante) {
+    if (status == Status.E && !participante.getProjetos().contains(this)) {
+      if (participante.getTipo() != TipoColaborador.G || participante.getProjetos().size() < 2) {
+        colaboradores.add(participante);
+        participante.adicionaProjeto(this);
+        return true;
+      } else {
+        long c = participante.getProjetos().stream().filter(projeto -> projeto.getStatus() == Status.A).count();
+        if (c < 2) {
+          colaboradores.add(participante);
+          participante.adicionaProjeto(this);
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  public boolean associaPublicacao(Publicacao publicacao) {
+    if (status == Status.A) {
+      publicacoes.add(publicacao);
+      publicacao.setProjeto(this);
+      return true;
+    }
+    return false;
   }
 }
