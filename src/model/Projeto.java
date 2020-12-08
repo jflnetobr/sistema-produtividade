@@ -126,10 +126,6 @@ public class Projeto {
     this.publicacoes = publicacoes;
   }
 
-  public void adicionaPublicacao(Publicacao publicacao) {
-    this.publicacoes.add(publicacao);
-  }
-
   public String complementarDados(String dataInicio, String dataTermino, String agenciaFinanciadora,
       float valorFinanciado, String objetivo, String descricao) {
     if (this.dataInicio == null && this.dataTermino == null && this.agenciaFinanciadora == null
