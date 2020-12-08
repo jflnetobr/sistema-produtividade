@@ -1,5 +1,6 @@
 package src.view;
 
+import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
@@ -7,6 +8,8 @@ import src.model.*;
 
 public class ProjetoView {
   public void relatorio(Projeto projeto) {
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
     System.out.println("Mostrando dados do projeto de ID " + projeto.getId() + ":");
 
     System.out.println();
@@ -16,8 +19,8 @@ public class ProjetoView {
     System.out.println();
 
     System.out.println(" - Titulo: " + projeto.getTitulo());
-    System.out.println(" - Data de inicio: " + projeto.getDataInicio());
-    System.out.println(" - Data de termino: " + projeto.getDataTermino());
+    System.out.println(" - Data de inicio: " + sdf.format(projeto.getDataInicio()));
+    System.out.println(" - Data de termino: " + sdf.format(projeto.getDataTermino()));
     System.out.println(" - Agencia Financiadora: " + projeto.getAgenciaFinanciadora());
     System.out.println(" - Valor Financiado: R$ " + projeto.getValorFinanciado());
     System.out.println();

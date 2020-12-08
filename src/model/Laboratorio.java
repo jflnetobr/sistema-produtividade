@@ -1,6 +1,8 @@
 package src.model;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import src.model.enums.*;
 
@@ -155,8 +157,20 @@ public class Laboratorio {
   public String criarProjetoCompleto(String titulo, String dataInicio, String dataTermino, String agenciaFinanciadora,
       float valorFinanciado, String objetivo, String descricao, int idResponsavel) {
     if (colaboradores.get(idResponsavel - 1).getTipo() == TipoColaborador.Prof) {
-      this.projetos.add(new Projeto(projetos.size() + 1, titulo, dataInicio, dataTermino, agenciaFinanciadora,
-          valorFinanciado, objetivo, descricao, colaboradores.get(idResponsavel - 1)));
+
+      SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+      sdf.setLenient(false);
+      Date dI, dT;
+
+      try {
+        dI = sdf.parse(dataInicio);
+        dT = sdf.parse(dataTermino);
+      } catch (Exception e) {
+        return "Uma das datas informadas nao e valida";
+      }
+
+      this.projetos.add(new Projeto(projetos.size() + 1, titulo, dI, dT, agenciaFinanciadora, valorFinanciado, objetivo,
+          descricao, colaboradores.get(idResponsavel - 1)));
       return "";
     }
     return "O responsavel informado nao e um professor";

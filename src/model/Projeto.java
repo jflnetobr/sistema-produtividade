@@ -1,14 +1,16 @@
 package src.model;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import src.model.enums.*;
 
 public class Projeto {
   private int id;
   private String titulo;
-  private String dataInicio;
-  private String dataTermino;
+  private Date dataInicio;
+  private Date dataTermino;
   private String agenciaFinanciadora;
   private float valorFinanciado;
   private String objetivo;
@@ -24,7 +26,7 @@ public class Projeto {
     colaboradores.add(responsavel);
   }
 
-  public Projeto(int id, String titulo, String dataInicio, String dataTermino, String agenciaFinanciadora,
+  public Projeto(int id, String titulo, Date dataInicio, Date dataTermino, String agenciaFinanciadora,
       float valorFinanciado, String objetivo, String descricao, Colaborador responsavel) {
     this.id = id;
     this.titulo = titulo;
@@ -46,11 +48,11 @@ public class Projeto {
     return titulo;
   }
 
-  public String getDataInicio() {
+  public Date getDataInicio() {
     return dataInicio;
   }
 
-  public String getDataTermino() {
+  public Date getDataTermino() {
     return dataTermino;
   }
 
@@ -90,11 +92,11 @@ public class Projeto {
     this.titulo = titulo;
   }
 
-  public void setDataInicio(String dataInicio) {
+  public void setDataInicio(Date dataInicio) {
     this.dataInicio = dataInicio;
   }
 
-  public void setDataTermino(String dataTermino) {
+  public void setDataTermino(Date dataTermino) {
     this.dataTermino = dataTermino;
   }
 
@@ -130,15 +132,27 @@ public class Projeto {
       float valorFinanciado, String objetivo, String descricao) {
     if (this.dataInicio == null && this.dataTermino == null && this.agenciaFinanciadora == null
         && this.valorFinanciado == 0 && this.objetivo == null && this.descricao == null) {
-      this.dataInicio = dataInicio;
-      this.dataTermino = dataTermino;
+
+      SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+      sdf.setLenient(false);
+      Date dI, dT;
+
+      try {
+        dI = sdf.parse(dataInicio);
+        dT = sdf.parse(dataTermino);
+      } catch (Exception e) {
+        return "Uma das datas informadas nao e valida";
+      }
+
+      this.dataInicio = dI;
+      this.dataTermino = dT;
       this.agenciaFinanciadora = agenciaFinanciadora;
       this.valorFinanciado = valorFinanciado;
       this.objetivo = objetivo;
       this.descricao = descricao;
       return "";
     }
-    return "O Projeto ja tem todas as informacoes basicas";
+    return "O Projeto ja tem as informacoes basicas";
   }
 
   public String avancaStatus() {
