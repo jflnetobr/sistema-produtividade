@@ -138,7 +138,7 @@ public class Projeto {
       this.descricao = descricao;
       return "";
     }
-    return "O Projeto já tem todas as informações básicas";
+    return "O Projeto ja tem todas as informacoes basicas";
   }
 
   public String avancaStatus() {
@@ -149,22 +149,22 @@ public class Projeto {
           if (colaboradores.get(1).getTipo() == TipoColaborador.G) {
             if (colaboradores.get(1).getProjetos().stream().filter(projeto -> projeto.getStatus() == Status.A)
                 .count() >= 2) {
-              return "Um ou mais Graduandos da equipe está(ão) alocado(s) em dois projetos em andamento";
+              return "Um ou mais Graduandos da equipe esta(ao) alocado(s) em dois projetos em andamento";
             }
           }
         }
         this.status = Status.A;
         return "";
       }
-      return "As informações básicas do projeto não estão presentes";
+      return "As informacoes basicas do projeto nao estao presentes";
     } else if (status == Status.A) {
       if (publicacoes.size() > 0) {
         this.status = Status.C;
         return "";
       }
-      return "Não existem publicações associadas ao projeto";
+      return "Nao existem publicacoes associadas ao projeto";
     }
-    return "O projeto já foi concluído";
+    return "O projeto ja foi concluido";
   }
 
   public String alocaParticipante(Colaborador participante) {
@@ -174,20 +174,20 @@ public class Projeto {
         participante.adicionaProjeto(this);
         return "";
       }
-      return "O colaborador informado já está alocado no projeto";
+      return "O colaborador informado ja esta alocado no projeto";
     }
-    return "Não é possível alocar colaboradores, pois o projeto não está mais em elaboração";
+    return "Nao e possivel alocar colaboradores, pois o projeto nao esta mais em elaboracao";
   }
 
   public String associaPublicacao(Publicacao publicacao) {
     if (status == Status.A) {
-      if (publicacoes.contains(publicacao)) {
+      if (!publicacoes.contains(publicacao)) {
         publicacoes.add(publicacao);
         publicacao.setProjeto(this);
         return "";
       }
-      return "A publicação informada já está associada ao Projeto";
+      return "A publicacao informada ja esta associada ao Projeto";
     }
-    return "Não foi possível associar a publicação, pois o projeto não está em andamento";
+    return "Nao foi possivel associar a publicacao, pois o projeto nao esta em andamento";
   }
 }

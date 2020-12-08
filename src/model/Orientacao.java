@@ -36,8 +36,8 @@ public class Orientacao extends ProducaoAcademica {
         orientado.adicionaProducaoAcademica(this);
         return "";
       }
-      return "O orientado não pode ser um professor";
+      return "O orientado nao pode ser um professor";
     }
-    return "O orientado informado já está na orientação";
+    return "O orientado informado ja esta na orientacao";
   }
 }

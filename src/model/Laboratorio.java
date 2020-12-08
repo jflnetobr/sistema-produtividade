@@ -136,7 +136,7 @@ public class Laboratorio {
         t = TipoColaborador.Pesq;
         break;
       default:
-        return "Tipo informado inválido!";
+        return "Tipo informado invalido!";
     }
 
     this.colaboradores.add(new Colaborador(colaboradores.size() + 1, nome, email, t));
@@ -149,7 +149,7 @@ public class Laboratorio {
       this.projetos.add(new Projeto(projetos.size() + 1, titulo, colaboradores.get(idResponsavel - 1)));
       return "";
     }
-    return "O responsável informado não é um professor";
+    return "O responsavel informado nao e um professor";
   }
 
   public String criarProjetoCompleto(String titulo, String dataInicio, String dataTermino, String agenciaFinanciadora,
@@ -159,7 +159,7 @@ public class Laboratorio {
           valorFinanciado, objetivo, descricao, colaboradores.get(idResponsavel - 1)));
       return "";
     }
-    return "O responsável informado não é um professor";
+    return "O responsavel informado nao e um professor";
   }
 
   public String criarPublicacao(String titulo, int anoPublicacao, String nomeConferencia) {
@@ -174,6 +174,6 @@ public class Laboratorio {
           new Orientacao(producoesAcademicas.size() + 1, titulo, anoPublicacao, colaboradores.get(idOrientador - 1)));
       return "";
     }
-    return "O orientador informado não é um professor";
+    return "O orientador informado nao e um professor";
   }
 }

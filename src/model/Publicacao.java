@@ -44,6 +44,6 @@ public class Publicacao extends ProducaoAcademica {
       autor.adicionaProducaoAcademica(this);
       return "";
     }
-    return "O autor informado já está na publicação";
+    return "O autor informado ja esta na publicacao";
   }
 }
