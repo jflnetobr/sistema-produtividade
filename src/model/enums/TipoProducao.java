@@ -1,7 +1,7 @@
 package src.model.enums;
 
 public enum TipoProducao {
-  P("Publicação"), O("Orientação");
+  P("Publicacao"), O("Orientacao");
 
   private final String descricao;
 

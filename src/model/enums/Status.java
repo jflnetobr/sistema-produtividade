@@ -1,7 +1,7 @@
 package src.model.enums;
 
 public enum Status {
-  E("Elaboração"), A("Em Andamento"), C("Concluído");
+  E("Em Elaboracao"), A("Em Andamento"), C("Concluido");
 
   private final String descricao;
 
