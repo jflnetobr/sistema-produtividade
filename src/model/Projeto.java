@@ -130,7 +130,7 @@ public class Projeto {
     this.publicacoes.add(publicacao);
   }
 
-  public boolean complementarDados(String dataInicio, String dataTermino, String agenciaFinanciadora,
+  public String complementarDados(String dataInicio, String dataTermino, String agenciaFinanciadora,
       float valorFinanciado, String objetivo, String descricao) {
     if (this.dataInicio == null && this.dataTermino == null && this.agenciaFinanciadora == null
         && this.valorFinanciado == 0 && this.objetivo == null && this.descricao == null) {
@@ -140,12 +140,12 @@ public class Projeto {
       this.valorFinanciado = valorFinanciado;
       this.objetivo = objetivo;
       this.descricao = descricao;
-      return true;
+      return "";
     }
-    return false;
+    return "O Projeto já tem todas as informações básicas";
   }
 
-  public boolean avancaStatus() {
+  public String avancaStatus() {
     if (status == Status.E) {
       if (this.dataInicio != null && this.dataTermino != null && this.agenciaFinanciadora != null
           && this.valorFinanciado != 0 && this.objetivo != null && this.descricao != null) {
@@ -153,49 +153,45 @@ public class Projeto {
           if (colaboradores.get(1).getTipo() == TipoColaborador.G) {
             if (colaboradores.get(1).getProjetos().stream().filter(projeto -> projeto.getStatus() == Status.A)
                 .count() >= 2) {
-              return false;
+              return "Um ou mais Graduandos da equipe está(ão) alocado(s) em dois projetos em andamento";
             }
           }
         }
         this.status = Status.A;
-        return true;
+        return "";
       }
-      return false;
+      return "As informações básicas do projeto não estão presentes";
     } else if (status == Status.A) {
       if (publicacoes.size() > 0) {
         this.status = Status.C;
-        return true;
+        return "";
       }
-      return false;
+      return "Não existem publicações associadas ao projeto";
     }
-    return false;
+    return "O projeto já foi concluído";
   }
 
-  public boolean alocaParticipante(Colaborador participante) {
-    if (status == Status.E && !participante.getProjetos().contains(this)) {
-      if (participante.getTipo() != TipoColaborador.G || participante.getProjetos().size() < 2) {
+  public String alocaParticipante(Colaborador participante) {
+    if (status == Status.E) {
+      if (!colaboradores.contains(participante)) {
         colaboradores.add(participante);
         participante.adicionaProjeto(this);
-        return true;
-      } else {
-        long c = participante.getProjetos().stream().filter(projeto -> projeto.getStatus() == Status.A).count();
-        if (c < 2) {
-          colaboradores.add(participante);
-          participante.adicionaProjeto(this);
-          return true;
-        }
+        return "";
       }
+      return "O colaborador informado já está alocado no projeto";
     }
-
-    return false;
+    return "Não é possível alocar colaboradores, pois o projeto não está mais em elaboração";
   }
 
-  public boolean associaPublicacao(Publicacao publicacao) {
+  public String associaPublicacao(Publicacao publicacao) {
     if (status == Status.A) {
-      publicacoes.add(publicacao);
-      publicacao.setProjeto(this);
-      return true;
+      if (publicacoes.contains(publicacao)) {
+        publicacoes.add(publicacao);
+        publicacao.setProjeto(this);
+        return "";
+      }
+      return "A publicação informada já está associada ao Projeto";
     }
-    return false;
+    return "Não foi possível associar a publicação, pois o projeto não está em andamento";
   }
 }

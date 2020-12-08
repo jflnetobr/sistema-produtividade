@@ -2,7 +2,7 @@ package src.model;
 
 import java.util.ArrayList;
 
-import src.model.enums.TipoProducao;
+import src.model.enums.*;
 
 public class Orientacao extends ProducaoAcademica {
   private Colaborador orientador;
@@ -29,12 +29,15 @@ public class Orientacao extends ProducaoAcademica {
     this.orientados = orientados;
   }
 
-  public boolean adicionaOrientado(Colaborador orientado) {
+  public String adicionaOrientado(Colaborador orientado) {
     if (!orientados.contains(orientado)) {
-      orientados.add(orientado);
-      orientado.adicionaProducaoAcademica(this);
-      return true;
+      if (orientado.getTipo() != TipoColaborador.Prof) {
+        orientados.add(orientado);
+        orientado.adicionaProducaoAcademica(this);
+        return "";
+      }
+      return "O orientado não pode ser um professor";
     }
-    return false;
+    return "O orientado informado já está na orientação";
   }
 }

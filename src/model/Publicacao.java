@@ -38,12 +38,12 @@ public class Publicacao extends ProducaoAcademica {
     this.autores = autores;
   }
 
-  public boolean adicionaAutor(Colaborador autor) {
+  public String adicionaAutor(Colaborador autor) {
     if (!autores.contains(autor)) {
       autores.add(autor);
       autor.adicionaProducaoAcademica(this);
-      return true;
+      return "";
     }
-    return false;
+    return "O autor informado já está na publicação";
   }
 }

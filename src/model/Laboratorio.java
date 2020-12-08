@@ -116,7 +116,7 @@ public class Laboratorio {
     return result;
   }
 
-  public boolean criarColaborador(String nome, String email, int tipo) {
+  public String criarColaborador(String nome, String email, int tipo) {
     TipoColaborador t;
 
     switch (tipo) {
@@ -136,45 +136,44 @@ public class Laboratorio {
         t = TipoColaborador.Pesq;
         break;
       default:
-        return false;
+        return "Tipo informado inválido!";
     }
 
     this.colaboradores.add(new Colaborador(colaboradores.size() + 1, nome, email, t));
 
-    return true;
+    return "";
   }
 
-  public boolean criarProjetoResumido(String titulo, int idResponsavel) {
+  public String criarProjetoResumido(String titulo, int idResponsavel) {
     if (colaboradores.get(idResponsavel - 1).getTipo() == TipoColaborador.Prof) {
       this.projetos.add(new Projeto(projetos.size() + 1, titulo, colaboradores.get(idResponsavel - 1)));
-      return true;
+      return "";
     }
-    return false;
+    return "O responsável informado não é um professor";
   }
 
-  public boolean criarProjetoCompleto(String titulo, String dataInicio, String dataTermino, String agenciaFinanciadora,
+  public String criarProjetoCompleto(String titulo, String dataInicio, String dataTermino, String agenciaFinanciadora,
       float valorFinanciado, String objetivo, String descricao, int idResponsavel) {
     if (colaboradores.get(idResponsavel - 1).getTipo() == TipoColaborador.Prof) {
       this.projetos.add(new Projeto(projetos.size() + 1, titulo, dataInicio, dataTermino, agenciaFinanciadora,
           valorFinanciado, objetivo, descricao, colaboradores.get(idResponsavel - 1)));
-      return true;
+      return "";
     }
-    return false;
+    return "O responsável informado não é um professor";
   }
 
-  public boolean criarPublicacao(String titulo, int anoPublicacao, String nomeConferencia) {
+  public String criarPublicacao(String titulo, int anoPublicacao, String nomeConferencia) {
     this.producoesAcademicas
         .add(new Publicacao(producoesAcademicas.size() + 1, titulo, anoPublicacao, nomeConferencia));
-    return true;
+    return "";
   }
 
-  public boolean criarOrientacao(String titulo, int anoPublicacao, int idOrientador) {
+  public String criarOrientacao(String titulo, int anoPublicacao, int idOrientador) {
     if (colaboradores.get(idOrientador - 1).getTipo() == TipoColaborador.Prof) {
       this.producoesAcademicas.add(
           new Orientacao(producoesAcademicas.size() + 1, titulo, anoPublicacao, colaboradores.get(idOrientador - 1)));
-      return true;
+      return "";
     }
-
-    return false;
+    return "O orientador informado não é um professor";
   }
 }
