@@ -70,17 +70,12 @@ public class ProducaoAcademicaView {
               r = lab.criarPublicacao(titulo, Integer.parseInt(anoPublicacao), nomeConferencia);
 
               if (idProjeto.matches("-?\\d+")) {
-                if (Integer.parseInt(idProjeto) <= lab.getProjetos().size()) {
-                  if (lab.getProjeto(Integer.parseInt(idProjeto)) != null) {
-                    Publicacao p = (Publicacao) lab.getProducaoAcademica(lab.getProducoesAcademicas().size());
-                    System.out.println(lab.getProjeto(Integer.parseInt(idProjeto)).associaPublicacao(p));
-                    System.out.println();
-                    System.out.println("Pressione ENTER para continuar...");
-                    scanner.nextLine();
-                  } else {
-                    System.out.println("O ID informado nao pertence a nenhum projeto");
-                    System.out.println();
-                  }
+                if (Integer.parseInt(idProjeto) <= lab.getProjetos().size() && Integer.parseInt(idProjeto) > 0) {
+                  Publicacao p = (Publicacao) lab.getProducaoAcademica(lab.getProducoesAcademicas().size());
+                  System.out.println(lab.getProjeto(Integer.parseInt(idProjeto)).associaPublicacao(p));
+                  System.out.println();
+                  System.out.println("Pressione ENTER para continuar...");
+                  scanner.nextLine();
                 } else {
                   System.out.println("O ID informado nao pertence a nenhum projeto");
                   System.out.println();
@@ -112,6 +107,8 @@ public class ProducaoAcademicaView {
                 r = lab.criarOrientacao(titulo, Integer.parseInt(anoPublicacao), Integer.parseInt(idOrientador));
 
                 if (r == "") {
+                  lab.getColaborador(Integer.parseInt(idOrientador))
+                      .adicionaProducaoAcademica(lab.getProducaoAcademica(lab.getProducoesAcademicas().size()));
                   menuAdicionarOrientados(lab, scanner,
                       (Orientacao) lab.getProducaoAcademica(lab.getProducoesAcademicas().size()));
                 }

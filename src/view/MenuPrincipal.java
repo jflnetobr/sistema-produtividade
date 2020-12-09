@@ -70,6 +70,7 @@ public class MenuPrincipal {
           scanner.close();
           break loop;
         default:
+          System.out.println();
           Util.clrscr();
           System.out.println("Opcao invalida! Tente novamente");
           System.out.println();

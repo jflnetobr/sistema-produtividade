@@ -115,7 +115,6 @@ public class ColaboradorView {
     System.out.println();
 
     if (colaborador.getProjetos().size() > 0) {
-
       System.out.println("Historico de Projetos:");
 
       System.out.println();
@@ -133,6 +132,24 @@ public class ColaboradorView {
               + sdf.format(projeto.getDataTermino()) + "    |  " + projeto.getTitulo()));
     } else {
       System.out.println("O colaborador nao foi alocado em nenhum projeto ainda.");
+    }
+
+    System.out.println();
+
+    if (colaborador.getProducoesAcademicas().size() > 0) {
+      System.out.println("Historico de Producao Academica:");
+
+      System.out.println();
+
+      System.out.println("Tipo        |  Ano  |  Titulo");
+      System.out.println("--------------------------------------------");
+
+      colaborador.getProducoesAcademicas().stream()
+          .sorted(Comparator.comparing(ProducaoAcademica::getAnoPublicacao).reversed()).collect(Collectors.toList())
+          .forEach(producaoAcademica -> System.out.println(producaoAcademica.getTipo().getDescricao() + "  |  "
+              + producaoAcademica.getAnoPublicacao() + " |  " + producaoAcademica.getTitulo()));
+    } else {
+      System.out.println("O colaborador nao possui producao academica ainda.");
     }
   }
 }
