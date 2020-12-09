@@ -1,20 +1,80 @@
 package src.view;
 
+import java.util.Scanner;
+
 import src.model.*;
 import src.model.enums.*;
+import src.util.Util;
 
 public class LaboratorioView {
-  private Laboratorio laboratorio;
+  public static void menuRelatorios(Laboratorio lab, Scanner scanner) {
+    Util.clrscr();
 
-  public Laboratorio getLaboratorio() {
-    return laboratorio;
+    loop: while (true) {
+      System.out.println("Menu principal > Emissao de relatorios");
+
+      System.out.println();
+
+      System.out.println("Escolha uma opcao para continuar:");
+
+      System.out.println();
+
+      System.out.println(" [ 1 ] Relatorio de Producao Academica do laboratorio");
+      System.out.println(" [ 2 ] Relatorio de Colaboradores");
+      System.out.println(" [ 3 ] Relatorio de Projetos");
+      System.out.println(" [ 4 ] Relatorio de Producoes Academicas");
+      System.out.println(" [ 5 ] Voltar para o menu principal");
+
+      System.out.println();
+
+      System.out.print(" - Digite sua opcao: ");
+      String op = scanner.nextLine();
+
+      switch (op) {
+        case "1":
+          Util.clrscr();
+          relatorio(lab);
+          System.out.println();
+          System.out.println("Pressione ENTER para continuar...");
+          scanner.nextLine();
+          Util.clrscr();
+          break;
+        case "2":
+          Util.clrscr();
+          relatorioColaboradores(lab);
+          System.out.println();
+          System.out.println("Pressione ENTER para continuar...");
+          scanner.nextLine();
+          Util.clrscr();
+          break;
+        case "3":
+          Util.clrscr();
+          relatorioProjetos(lab);
+          System.out.println();
+          System.out.println("Pressione ENTER para continuar...");
+          scanner.nextLine();
+          Util.clrscr();
+          break;
+        case "4":
+          Util.clrscr();
+          relatorioProducaoAcademica(lab);
+          System.out.println();
+          System.out.println("Pressione ENTER para continuar...");
+          scanner.nextLine();
+          Util.clrscr();
+          break;
+        case "5":
+          break loop;
+        default:
+          Util.clrscr();
+          System.out.println("Opcao invalida! Tente novamente");
+          System.out.println();
+      }
+    }
+
   }
 
-  public void setLaboratorio(Laboratorio laboratorio) {
-    this.laboratorio = laboratorio;
-  }
-
-  public void relatorio() {
+  public static void relatorio(Laboratorio laboratorio) {
     System.out.println("O laboratorio " + laboratorio.getNome() + " da instituicao " + laboratorio.getInstituicao()
         + " tem atualmente os seguintes numeros:");
 
@@ -55,7 +115,7 @@ public class LaboratorioView {
     System.out.println();
   }
 
-  public void relatorioColaboradores() {
+  public static void relatorioColaboradores(Laboratorio laboratorio) {
     System.out.println("O laboratorio " + laboratorio.getNome() + " possui atualmente "
         + String.format("%02d", laboratorio.getColaboradores().size()) + " colaboradores, listados abaixo:");
 
@@ -78,7 +138,7 @@ public class LaboratorioView {
             + String.format("%-13s", colaborador.getTipo().getDescricao()) + "|  " + colaborador.getNome()));
   }
 
-  public void relatorioProjetos() {
+  public static void relatorioProjetos(Laboratorio laboratorio) {
     System.out.println("O laboratorio " + laboratorio.getNome() + " possui atualmente "
         + String.format("%02d", laboratorio.getProjetos().size()) + " projetos, listados abaixo:");
 
@@ -100,7 +160,7 @@ public class LaboratorioView {
         + "  |  " + String.format("%-15s", projeto.getStatus().getDescricao()) + "|  " + projeto.getTitulo()));
   }
 
-  public void relatorioProducaoAcademica() {
+  public static void relatorioProducaoAcademica(Laboratorio laboratorio) {
     System.out.println("O laboratorio " + laboratorio.getNome() + " possui atualmente "
         + String.format("%02d", laboratorio.getProducoesAcademicas().size())
         + " producoes academicas, listadas abaixo:");

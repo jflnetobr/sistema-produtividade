@@ -160,8 +160,8 @@ public class Projeto {
       if (this.dataInicio != null && this.dataTermino != null && this.agenciaFinanciadora != null
           && this.valorFinanciado != 0 && this.objetivo != null && this.descricao != null) {
         for (int i = 0; i < colaboradores.size(); i++) {
-          if (colaboradores.get(1).getTipo() == TipoColaborador.G) {
-            if (colaboradores.get(1).getProjetos().stream().filter(projeto -> projeto.getStatus() == Status.A)
+          if (colaboradores.get(i).getTipo() == TipoColaborador.G) {
+            if (colaboradores.get(i).getProjetos().stream().filter(projeto -> projeto.getStatus() == Status.A)
                 .count() >= 2) {
               return "Um ou mais Graduandos da equipe esta(ao) alocado(s) em dois projetos em andamento";
             }
